@@ -6,12 +6,18 @@ using TMPro;
 [ExecuteAlways]
 public class CoordinateLabel : MonoBehaviour
 {
+    [SerializeField] Color defaultColor = Color.white;
+    [SerializeField] Color blockedColor = Color.gray;
+
     TextMeshPro label;
     Vector2Int coordinate = new Vector2Int();
+    Point point;
 
     void Awake()
     {
         label = GetComponent<TextMeshPro>();
+        label.enabled = false;
+        point = GetComponentInParent<Point>();
         Display();
     }
     // Update is called once per frame
@@ -21,6 +27,29 @@ public class CoordinateLabel : MonoBehaviour
         {
             Display();
             ObjectName();
+        }
+
+        ToggleLabel();
+        ColorCoordinate();
+    }
+
+    void ToggleLabel()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            label.enabled = !label.enabled;
+        }
+    }
+
+    void ColorCoordinate()
+    {
+        if (point.IsPlace)
+        {
+            label.color = defaultColor;
+        }
+        else
+        {
+            label.color = blockedColor;
         }
     }
 

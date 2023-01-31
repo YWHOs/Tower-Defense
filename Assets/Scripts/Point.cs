@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Tower tower;
+    [SerializeField] bool isPlace;
+    public bool IsPlace { get { return isPlace; } }
 
-    // Update is called once per frame
-    void Update()
+    void OnMouseDown()
     {
-        
+        if (isPlace)
+        {
+            bool isPlaced = tower.CreateTower(tower, transform.position);
+            isPlace = !isPlaced;
+        }
     }
 }
