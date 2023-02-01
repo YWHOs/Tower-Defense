@@ -34,17 +34,22 @@ public class Enemy : MonoBehaviour
     {
         path.Clear();
 
-        GameObject[] wayPoint = GameObject.FindGameObjectsWithTag("Path");
+        GameObject parent = GameObject.FindGameObjectWithTag("Path");
 
-        foreach(GameObject waypoint in wayPoint)
+        foreach(Transform child in parent.transform)
         {
-            path.Add(waypoint.GetComponent<Point>());
+            Point point = child.GetComponent<Point>();
+            if(point != null)
+            {
+                path.Add(point);
+            }
         }
     }
     void ReturnToStart()
     {
         transform.position = path[0].transform.position;
     }
+
     IEnumerator PrintPoint()
     {
         foreach(Point point in path)
